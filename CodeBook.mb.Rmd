@@ -1,0 +1,37 @@
+---
+title: "CodeBook"
+author: "Caroline Lisevski"
+date: "7/8/2020"
+output: html_document
+---
+    The file run_analysis.R executed steps are described here:
+    
+    1. Dataset download from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+    
+    2. Variables assigned:
+features: 2 columns, 561 rows; data collected from accelerometer and gyroscope
+x_test: 561 columns, 2947 rows; recorded features data from 30% of volunteers
+y_test: 1 column, 2947 rows; code label activities
+x_train: 561 columns, 7352 rows; recorded features data from 70% of volunteers
+y_train: 1 column, 7352 rows; code label activities
+subj_train: 1 column, 7352 rows; contain train data of 21 subjects (70%)
+subj_test: 1 column, 2947 rows; contain test data of 9 subjects (30%)
+activity_label: 2 columns, 6 rows; description of activities performed
+
+    3.Merging
+x_train and x_test were merged using rbind() and created x with 561 columns and 10299 rows
+y_train and y_test were merged using rbind() and created y with 1 columns and 10299 rows
+subj_train and subj_test were merged using rbind() and created subj with 1 column and 10299 rows
+x, y and subj were merged using cbind() and created data_merged with 563 columns and 10299 rows
+
+    4. Extracting means and standard deviation for each measurement
+A subset called recorte was obtained using the select() function on data_merged data frame, looking for columns that contain "mean" and "std". To locate this columns was used contain() function insite select().
+
+    5. Inserting appropriated labels
+Using the variable activity_label, the number in code column on recorte were replaced.
+    
+    6. Appropriated labels
+"Acc" was substituted for "Acelerometer"; "Gyro" for "Gyroscope"; "BodyBody" for "Body"; "Mag" for "Magnitude"; "^t" for "Time"; "^f" for "Frequency"; "tBody" for "TimeBody"; "-mean()" for "Mean"; "-std()" for "STD"; "-freq()" for "Frequency"; "angle" for "Angle" and "gravity" for "Gravity".
+
+    7. Final Data
+A final data frame was called Final.txt and contains 88 columns and 180 rows. It was exported using write.table() function.
